@@ -1,12 +1,4 @@
-# DevKin - Collaborative Code Editor
-
-DevKin is a collaborative code editor that enables developers to work together in real-time on shared projects. Users can create and manage projects, add collaborators, and execute code securely within a Dockerized environment. The application includes a sign-in/sign-up system, as well as light and dark mode options.
-
-<p align="center">
-  <img src="media/about.png" alt="Image 1" width="45%" style="display: inline-block; margin-right: 10px;">
-  <img src="media/darkmode 2.png" alt="Image 2" width="45%" style="display: inline-block;">
-</p>
-
+# Coders - Collaborative Code Editor
 ## Features
 
 - **Real-Time Collaboration**: 
@@ -23,14 +15,6 @@ DevKin is a collaborative code editor that enables developers to work together i
 - **User Authentication**:
   - Secure sign-up and sign-in using JWT-based authentication.
   - Dashboard access is restricted to authenticated users only.
-
-- **Themes**:
-  - Customizable vintage theme with light and dark modes, accessible through the Navbar.
-
-<p align="center">
-  <img src="media/project page.png" alt="Image 1" width="45%" style="display: inline-block; margin-right: 10px;">
-  <img src="media/darkmode1.png" alt="Image 2" width="45%" style="display: inline-block;">
-</p>
 
 ## Tech Stack
 
@@ -57,23 +41,10 @@ DevKin is a collaborative code editor that enables developers to work together i
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Ibrahim0Ineizeh/DevKin
-   cd DevKin
+   git clone https://github.com/ahmademadd/Coders-Collaborative-Code-Editor
+   cd Coders-Collaborative-Code-Editor
 
-2. **Build the frontend**:
-   ```bash
-   cd devkin-frontend
-   npm run build
-
-
-3. **Backend Development**:
-   - Start the backend server in your IDE or via the generated JAR file:
-     ```bash
-     java -jar devkin-backend/target/devkin-backend.jar
-     ```
-   - Ensure the backend server and frontend server are using consistent CORS configurations.
-
-4. **Testing with Docker Compose**:
+2. **Testing with Docker Compose**:
    - For end-to-end testing in a Docker environment, run:
      ```bash
      docker-compose up --build
