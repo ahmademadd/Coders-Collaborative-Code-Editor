@@ -1,0 +1,127 @@
+/* common-theme.css */
+body {
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .form-container {
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px 20px;
+    border-radius: 15px;
+    width: 360px;
+    margin-top: 8%;
+    margin-left: 36%;
+    transition: box-shadow 300ms, transform 300ms;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+  }
+.form-container::before, .form-container::after {
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-top-left-radius: 40%;
+    border-top-right-radius: 45%;
+    border-bottom-left-radius: 35%;
+    border-bottom-right-radius: 40%;
+    z-index: -1;
+}
+
+.form-container::before {
+    bottom: -130%;
+    background-color: rgba(69, 105, 144, 0.15);
+    animation: wawes 6s infinite linear;
+}
+
+.form-container::after {
+    bottom: -125%;
+    background-color: rgba(2, 128, 144, 0.2);
+    animation: wawes 7s infinite linear;
+}
+
+@keyframes wawes {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.form-container h2 {
+text-align: center;
+margin-bottom: 20px;
+color: #000;
+}
+
+.form-container form {
+display: flex;
+flex-direction: column;
+}
+
+.form-container label {
+margin-bottom: 8px;
+font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"] {
+padding: 12px;
+margin-bottom: 20px;
+border: 1px solid #ccc;
+border-radius: 6px;
+width: 100%;
+box-sizing: border-box;
+}
+
+.form-container button {
+padding: 12px;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+font-size: 16px;
+}
+
+.form-container button:hover, .social-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.01);
+}
+
+.form-container button[type="submit"] {
+background-color: #096a71;
+color: #fff;
+margin-bottom: 15px;
+}
+
+.form-container .social-buttons {
+display:flex;
+justify-content: space-between;
+margin-bottom: 10px;
+}
+
+.social-button {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 12px;
+border: 1px solid #ccc;
+border-radius: 6px;
+width: 95%;
+cursor: pointer;
+font-size: 14px;
+}
+
+.social-button.github {
+background-color: #222;
+color: #fff;
+}
+
+.social-button.google {
+background-color: #db4437;
+color: #fff;
+}

@@ -1,0 +1,103 @@
+/* Navbar styling */
+.navbar {
+  background-color: #096a71;
+  padding: 30px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.navbar-logo {
+  position: absolute;
+  left: 0;
+}
+
+.navbar-logo h1 {
+  font-family: 'Papyrus', fantsy;
+  color: #fff; /* Light mode logo color */
+  margin: 0;
+  font-size: 3rem;
+  margin-left: 10px;
+}
+
+.navbar-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex: 1;
+  font-size: 1.2rem;
+}
+
+.navbar-link {
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+
+.navbar-link:hover {
+  background-color: #083639; /* Light mode hover */
+}
+
+.navbar-username {
+  margin: auto 0;
+  font-weight: 600;
+  color: #fff;
+}
+
+.navbar-auth {
+  display: flex;
+  gap: 15px;
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+}
+
+.navbar-signup {
+  color: #fff; /* Light mode text color */
+  background-color: #083639; /* No background */
+  border-radius: 10px; /* Smooth edges */
+  padding: 8px 12px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  font-style: bold;
+  margin-right: 0px;
+}
+
+.navbar-signup:hover {
+  background-color: rgb(185, 0, 0); /* Light mode background color on hover */
+  }
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar-auth {
+    flex-direction: column;
+    align-items: center;
+    position: static;
+    margin-top: 10px;
+  }
+
+  .navbar-logo {
+    position: static;
+    margin-bottom: 10px;
+  }
+}
