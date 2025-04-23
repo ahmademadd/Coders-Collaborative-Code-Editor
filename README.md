@@ -44,8 +44,8 @@
    git clone https://github.com/ahmademadd/Coders-Collaborative-Code-Editor
    cd Coders-Collaborative-Code-Editor
 
-2. **Testing with Docker Compose**:
-   - For end-to-end testing in a Docker environment, run:
+2. **Deployment with Docker Compose**:
+   - For end-to-end deployment in a Docker environment, run:
      ```bash
      docker-compose up --build
      ```
