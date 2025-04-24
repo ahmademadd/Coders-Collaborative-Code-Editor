@@ -2,6 +2,7 @@ package com.example.coders.configs;
 import com.example.coders.entities.User;
 import com.example.coders.repositories.UserRepository;
 import com.example.coders.services.AuthenticationService;
+import com.example.coders.services.CustomOAuth2UserService;
 import com.example.coders.services.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -43,6 +44,9 @@ public class SecurityConfiguration {
     private JwtService jwtService;
 
     @Autowired
+    CustomOAuth2UserService customOAuth2UserService;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Bean
@@ -55,6 +59,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/ws/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo.
+                                userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler())
                         .failureUrl("/login?error=true"))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -68,21 +74,21 @@ public class SecurityConfiguration {
         return (request, response, authentication) -> {
             OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
             // Generate JWT token
-            String githubId = oauthUser.getName();
-            String token = jwtService.generateToken(githubId);
+            String email = oauthUser.getAttribute("email");
+            String token = jwtService.generateToken(email);
 
-            User user = userRepository.findByEmail(githubId).orElse(null);
+            User user = userRepository.findByEmail(email).orElse(null);
 
             if (user == null) {
                 user = new User();
-                user.setEmail(githubId);
-                user.setName(githubId);
-                user.setPassword(oauthUser.getName());
+                user.setEmail(email);
+                user.setName(email);
+                user.setPassword("");
                 userRepository.save(user);
             }
 
             // Redirect to frontend with token and email
-            response.sendRedirect("http://localhost:80/?token=" + token + "&email=" + URLEncoder.encode(githubId, StandardCharsets.UTF_8));
+            response.sendRedirect("http://localhost:80/?token=" + URLEncoder.encode(token, StandardCharsets.UTF_8) + "&email=" + URLEncoder.encode(email, StandardCharsets.UTF_8));
 
         };
     }
