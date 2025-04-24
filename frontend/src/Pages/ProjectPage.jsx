@@ -428,7 +428,7 @@ const handleRenameSubmit = async () => {
         <div className={`project-page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="project-header">
                 <h1>{project ? project.name : 'Loading project...'}</h1>
-                <button className="settings-btn roleCustom" onClick={handleSettings} disabled={isButtonDisabled(['owner'])}>Settings</button>
+                <button className="settings-btn roleCustom" onClick={handleSettings} disabled={isButtonDisabled(['owner'])}>Developers</button>
             </div>
             <div className="columns-container">
                 <div className="column file-explorer">

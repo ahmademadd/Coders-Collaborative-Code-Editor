@@ -45,10 +45,10 @@ services:
   frontend:
     container_name: frontend-React
     build:
-      context: frontend
-      dockerfile: Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile.dev
     ports:
-      - "80:80"
+      - "5173:5173"
     networks:
       - front_network
       - minio-network

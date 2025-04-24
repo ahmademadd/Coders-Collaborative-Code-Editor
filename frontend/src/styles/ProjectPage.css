@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     padding: 5px;
-    height: 90vh; /* Full height of the viewport */
     transition: background-color 0.3s, color 0.3s;
   }
   
@@ -21,18 +20,13 @@
   
   /* Settings Button Styling */
   .settings-btn {
-    background-color: #81c7ff;
-    color: black;
+    color: #fff;
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-right: 0px;
-  }
-  
-  .settings-btn:hover {
-    background-color: #6bb0e0;
   }
   
   /* Columns Container */
@@ -86,7 +80,7 @@
   
   /* Buttons inside columns */
   button {
-    background-color: #4793AF;
+    background-color: #083639;
     color: white;
     padding: 5px 10px;
     border: none;
@@ -97,7 +91,7 @@
   }
   
   button:hover {
-    background-color: #3b7695;
+    transform: scale(1.01);
   }
   
   /* Dark Mode Adjustments */
@@ -107,12 +101,13 @@
   }
   
   .dark-mode .settings-btn {
-    background-color: #6bb0e0;
+    background-color: #096a71;
     color: black;
   }
   
   .dark-mode .settings-btn:hover {
-    background-color: #81c7ff;
+    background-color: #0056b3;
+    transform: scale(1.01);
   }
   
   .codeEditor{
@@ -258,7 +253,8 @@
 
 /* Light and dark mode colors */
 .project-page-container.light-mode {
-  background-color: #ffffff;
+  overflow: auto;
+  background-color: #fff;
   color: #2a2a2a;
 }
 
@@ -288,6 +284,7 @@
 }
 
 .developers-container {
+  background-color: white;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;

@@ -9,7 +9,7 @@ const ProjectSettings = () => {
     const navigate = useNavigate();
     
     const [project, setProject] = useState(null);
-    const [activeTab, setActiveTab] = useState('description');
+    const [activeTab, setActiveTab] = useState('users');
     const [description, setDescription] = useState('');
     const [language, setLanguage] = useState('Python');
     const [allUsers, setAllUsers] = useState([]);
@@ -212,13 +212,13 @@ const ProjectSettings = () => {
         <div className={`project-page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className='settingControl'>
                 <button className='backbutton' onClick={handleBackClick}>Back</button>
-                <button className='delete-button' onClick={handleDeleteProject}>Delete Project</button>
+{/*                 <button className='delete-button' onClick={handleDeleteProject}>Delete Project</button> */}
             </div>
             <h1 className='projectSettings'>{project ? project.name : 'Loading...'}</h1>
-            <div className="tabs">
-                <button onClick={() => setActiveTab('description')} className={activeTab === 'description' ? 'active' : ''}>Update Project</button>
-                <button onClick={() => setActiveTab('users')} className={activeTab === 'users' ? 'active' : ''}>Add Developers</button>
-            </div>
+{/*             <div className="tabs"> */}
+{/*                 <button onClick={() => setActiveTab('description')} className={activeTab === 'description' ? 'active' : ''}>Update Project</button> */}
+{/*                 <button onClick={() => setActiveTab('users')} className={activeTab === 'users' ? 'active' : ''}>Add Developers</button> */}
+{/*             </div> */}
             <div className="tab-content">
                 {activeTab === 'description' && (
                     <div className='updateContainer'>
@@ -257,12 +257,12 @@ const ProjectSettings = () => {
                                     ))}
                                 </tbody>
                             </table>
-                            <label>Role:
-                                <select className="custom-select" value={role} onChange={e => setRole(e.target.value)}>
-                                    <option value="editor">Editor</option>
-                                    <option value="viewer">Viewer</option>
-                                </select>
-                            </label>
+{/*                             <label>Role: */}
+{/*                                 <select className="custom-select" value={role} onChange={e => setRole(e.target.value)}> */}
+{/*                                     <option value="editor">Editor</option> */}
+{/*                                     <option value="viewer">Viewer</option> */}
+{/*                                 </select> */}
+{/*                             </label> */}
                         </div>
                         <div className="current-developer-section">
                             <h2>Current Developers</h2>
