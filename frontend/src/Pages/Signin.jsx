@@ -81,7 +81,7 @@ const SignInPage = () => {
         </div>
         <button type="submit">Sign In</button>
         <div className="social-buttons">
-          <div className="social-button github" onClick={handleGitHubLogin}>Sign up with GitHub</div>
+          <div className="social-button github" onClick={handleGitHubLogin}>Sign in with GitHub</div>
         </div>
       </form>
     </div>
