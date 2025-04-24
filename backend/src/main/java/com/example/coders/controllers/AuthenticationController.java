@@ -44,19 +44,4 @@ public class AuthenticationController {
         return ResponseEntity.ok(loginResponse);
     }
 
-    @GetMapping("/login/oauth2/code/github")
-    public ResponseEntity<LoginResponse> handleGithubCallback(@AuthenticationPrincipal OAuth2User principal) {
-        String email = principal.getAttribute("email");
-        String name = principal.getAttribute("name");
-
-        User registeredUser = authenticationService.authenticateOAuth2User(principal);
-
-        String jwtToken = jwtService.generateToken(registeredUser);
-
-        LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setToken(jwtToken);
-        loginResponse.setExpiresIn(jwtService.getExpirationTime());
-
-        return ResponseEntity.ok(loginResponse);
-    }
 }

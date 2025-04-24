@@ -41,17 +41,19 @@ const SignInPage = () => {
 
   const handleOAuthCallback = () => {
     const token = new URLSearchParams(window.location.search).get('token');
+    const email = new URLSearchParams(window.location.search).get('email');
     
     if (token) {
       localStorage.setItem('authToken', token);
+      localStorage.setItem('email', email);
       navigate('/dashboard'); // Redirect to dashboard
     }
   };
 
   useEffect(() => {
     handleOAuthCallback();
-    document.body.className = isDarkMode ? 'dark-mode-body' : 'light-mode-body';
-  }, [isDarkMode]);
+  }, []);
+
 
   return (
     <div className={`form-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>

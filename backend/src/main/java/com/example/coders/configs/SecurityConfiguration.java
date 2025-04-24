@@ -1,4 +1,10 @@
 package com.example.coders.configs;
+import com.example.coders.entities.User;
+import com.example.coders.repositories.UserRepository;
+import com.example.coders.services.AuthenticationService;
+import com.example.coders.services.JwtService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,13 +14,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +39,12 @@ public class SecurityConfiguration {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.
@@ -36,12 +55,36 @@ public class SecurityConfiguration {
                         .requestMatchers("/ws/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("http://localhost:5173/dashboard")
+                        .successHandler(oAuth2AuthenticationSuccessHandler())
                         .failureUrl("/login?error=true"))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler() {
+        return (request, response, authentication) -> {
+            OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
+            // Generate JWT token
+            String githubId = oauthUser.getName();
+            String token = jwtService.generateToken(githubId);
+
+            User user = userRepository.findByEmail(githubId).orElse(null);
+
+            if (user == null) {
+                user = new User();
+                user.setEmail(githubId);
+                user.setName(githubId);
+                user.setPassword(oauthUser.getName());
+                userRepository.save(user);
+            }
+
+            // Redirect to frontend with token and email
+            response.sendRedirect("http://localhost:80/?token=" + token + "&email=" + URLEncoder.encode(githubId, StandardCharsets.UTF_8));
+
+        };
     }
 
     @Bean

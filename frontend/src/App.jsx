@@ -17,7 +17,12 @@ function App() {
   return (
     <ThemeProvider> 
       <Routes>
-      <Route path="*" element={<Navigate to="/signin" replace />} />
+        <Route path="/"
+            element={
+                <><Navbar />
+                <Signin /></>
+            }
+        />
         <Route
           path="/signin"
           element={
