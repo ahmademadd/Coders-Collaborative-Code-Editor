@@ -37,7 +37,6 @@
   
   /* Light mode for popup */
   .popup.light-mode {
-    background-color: #f0f0f0;
     color: #000;
   }
   
@@ -49,7 +48,6 @@
   
   /* Button inside the popup */
   .popup button {
-    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -59,23 +57,19 @@
     margin: 10px 20px;
   }
   
-  .popup button:hover {
-    background-color: #0056b3;
-  }
-  
   .popup label {
     display: block;
     margin: 10px 0;
-}
+  }
 
-.popup input, .popup select {
-    width: 90%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+  .popup input, .popup select {
+     width: 90%;
+     padding: 8px;
+     margin-top: 5px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+  }
 
-.popup button {
-    margin-top: 15px;
-}
+  .popup button {
+        margin-top: 15px;
+  }

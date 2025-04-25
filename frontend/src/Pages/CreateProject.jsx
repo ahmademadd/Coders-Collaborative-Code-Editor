@@ -71,8 +71,8 @@ const CreateProject = () => {
             onChange={(e) => setLanguage(e.target.value)}
             required
           >
-            <option value="javascript">JavaScript</option>
             <option value="python">Python</option>
+            <option value="javascript">JavaScript</option>
           </select>
         </div>
 

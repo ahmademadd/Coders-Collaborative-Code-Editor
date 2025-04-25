@@ -435,7 +435,7 @@ const handleRenameSubmit = async () => {
                 <div className="column file-explorer">
                     <h2>File Explorer</h2>
                     <button className='roleCustom' onClick={handleFileCreate} disabled={isButtonDisabled(['editor', 'owner'])}>New File</button>
-                    <button className='roleCustom' onClick={handleRenameFile} disabled={isButtonDisabled(['editor', 'owner'])}>Rename</button>
+{/*                     <button className='roleCustom' onClick={handleRenameFile} disabled={isButtonDisabled(['editor', 'owner'])}>Rename</button> */}
                     <button className='roleCustom' onClick={handleDeleteFile} disabled={isButtonDisabled(['editor', 'owner'])}>Delete</button>
                     {projectStructure.length > 0 ? (
                         <FileExplorer files={projectStructure} onFileSelect={handleFileSelect} />
@@ -448,9 +448,10 @@ const handleRenameSubmit = async () => {
                     <h2>Code Editor</h2>
                     {selectedFile ? (
                         <div> 
-                            <div style={{ height: '70vh'}} className="codeEditor">  
+                            <div className="codeEditor">
                                 <MonacoEditor
-                                height="100%"
+
+                                height="400px"
                                 language="python"
                                 theme={isDarkMode ? 'vs-dark' : 'light'}
                                 value={fileContent}
@@ -467,22 +468,17 @@ const handleRenameSubmit = async () => {
                         <p></p>
                     )}
                 </div>
-                <div className="column output-console">
-                    <h2>Output Console</h2>
-                    <pre className='outputResult'>{output}</pre>
-                    <button onClick={handleClearOutput}>Clear Output</button>
-                </div>
                 {showCreatePopUP && (
                     <div className="popup-overlay">
                         <div className={`popup ${isDarkMode ? 'dark-mode' : 'light-mode'} show`}>
                             <h3>Create New File</h3>
-                            <label htmlFor="filePath">Enter full path:</label>
+                            <label htmlFor="filePath">Enter file name:</label>
                             <input
                                 type="text"
                                 id="filePath"
                                 value={newFilePath}
                                 onChange={(e) => setNewFilePath(e.target.value)}
-                                placeholder="e.g., /src/newFile.js"
+                                placeholder="file.py"
                             />
                             <button onClick={handleCreateSubmit}>Create</button>
                             <button onClick={() => setShowPopup(false)}>Cancel</button>
@@ -490,54 +486,59 @@ const handleRenameSubmit = async () => {
                     </div>
                 )}
 
-{showRenamePopup && (
-    <div className="popup-overlay">
-        <div className={`popup ${isDarkMode ? 'dark-mode' : 'light-mode'} show`}>
-            <h3>Rename File</h3>
-            <label htmlFor="filePath">Select current file:</label>
-            <select
-                value={fileToRename}
-                onChange={(e) => setFileToRename(e.target.value)}
-            >
-                <option value="" disabled>Select a file</option>
-                {projectStructure.map((file) => (
-                    <option key={file.fileId} value={file.fileName}>{file.fileName}</option>
-                ))}
-            </select>
-            <label htmlFor="newFileName">New file name:</label>
-            <input
-                type="text"
-                placeholder="New file name..."
-                value={newFileName}
-                onChange={(e) => setNewFileName(e.target.value)}
-            />
-            <button onClick={handleRenameSubmit}>Rename</button>
-            <button onClick={() => setShowRenamePopup(false)}>Cancel</button>
-        </div>
-    </div>
-)}
+                {showRenamePopup && (
+                    <div className="popup-overlay">
+                        <div className={`popup ${isDarkMode ? 'dark-mode' : 'light-mode'} show`}>
+                            <h3>Rename File</h3>
+                            <label htmlFor="filePath">Select current file:</label>
+                            <select
+                                value={fileToRename}
+                                onChange={(e) => setFileToRename(e.target.value)}
+                            >
+                                <option value="" disabled>Select a file</option>
+                                {projectStructure.map((file) => (
+                                    <option key={file.fileId} value={file.fileName}>{file.fileName}</option>
+                                ))}
+                            </select>
+                            <label htmlFor="newFileName">New file name:</label>
+                            <input
+                                type="text"
+                                placeholder="New file name..."
+                                value={newFileName}
+                                onChange={(e) => setNewFileName(e.target.value)}
+                            />
+                            <button onClick={handleRenameSubmit}>Rename</button>
+                            <button onClick={() => setShowRenamePopup(false)}>Cancel</button>
+                        </div>
+                    </div>
+                )}
 
 
-{showDeletePopup && (
-    <div className="popup-overlay">
-        <div className={`popup ${isDarkMode ? 'dark-mode' : 'light-mode'} show`}>
-            <h3>Delete File</h3>
-            <label htmlFor="filePath">Select file to delete:</label>
-            <select
-                value={fileToDelete}
-                onChange={(e) => setFileToDelete(e.target.value)}
-            >
-                <option value="" disabled>Select a file</option>
-                {projectStructure.map((file) => (
-                    <option key={file.fileId} value={file.fileName}>{file.fileName}</option> // Assuming fileId is unique
-                ))}
-            </select>
-            <button onClick={handleDeleteSubmit}>Delete</button>
-            <button onClick={() => setShowDeletePopup(false)}>Cancel</button>
-        </div>
-    </div>
-)}
+                {showDeletePopup && (
+                    <div className="popup-overlay">
+                        <div className={`popup ${isDarkMode ? 'dark-mode' : 'light-mode'} show`}>
+                            <h3>Delete File</h3>
+                            <label htmlFor="filePath">Select file to delete:</label>
+                            <select
+                                value={fileToDelete}
+                                onChange={(e) => setFileToDelete(e.target.value)}
+                            >
+                                <option value="" disabled>Select a file</option>
+                                {projectStructure.map((file) => (
+                                    <option key={file.fileId} value={file.fileName}>{file.fileName}</option> // Assuming fileId is unique
+                                ))}
+                            </select>
+                            <button onClick={handleDeleteSubmit}>Delete</button>
+                            <button onClick={() => setShowDeletePopup(false)}>Cancel</button>
+                        </div>
+                    </div>
+                )}
 
+            </div>
+            <div className="column output-console">
+                <h2 style={{ color: '#fff' }}>Output Console</h2>
+                <pre className='outputResult'>{output}</pre>
+                <button onClick={handleClearOutput}>Clear Output</button>
             </div>
         </div>
     );

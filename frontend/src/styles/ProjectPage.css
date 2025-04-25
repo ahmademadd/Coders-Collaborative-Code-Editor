@@ -1,8 +1,6 @@
 /* Project Page Container */
 .project-page-container {
-    height:100vh
-    display: flex;
-    flex-direction: column;
+    height: 86vh;
     padding: 5px;
     transition: background-color 0.3s, color 0.3s;
   }
@@ -33,10 +31,9 @@
   /* Columns Container */
   .columns-container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr; /* Three columns by default */
+    grid-template-columns: 1fr 3fr; /* Three columns by default */
     gap: 5px; /* Reduced gap between columns */
-    height: calc(100vh - 60px); /* Remaining height minus header and margin */
-    overflow: hidden; /* Prevents columns from exceeding the view height */
+    overflow: auto; /* Prevents columns from exceeding the view height */
   }
 
   .columns-container h2 {
@@ -59,7 +56,6 @@
     background-color: rgb(3 63 74 / 90%);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 100%;
     overflow-y: auto; /* Add scroll if content exceeds column height */
   }
   .file-container {
@@ -92,8 +88,8 @@
     background-color: #d0e0ff;
   }
   /* Specific Column Heights */
-  .file-explorer, .code-editor, .output-console {
-    height: 100%; /* Full height for all columns */
+  .output-console {
+    margin-top: 10px; /* Full height for all columns */
   }
   
   /* Code Area Styling */
@@ -138,7 +134,7 @@
     background-color: #0056b3;
     transform: scale(1.01);
   }
-  
+
   .codeEditor{
     margin-bottom: 10px;
   }
