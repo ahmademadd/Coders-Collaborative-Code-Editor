@@ -7,35 +7,6 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import global from 'global';
 
-const FileExplorer = ({ files, onFileSelect }) => (
-    <div>
-        {files.map((file) => {
-            // Create a Date object from the last modified string
-            const lastModifiedDate = new Date(file.lastModefied);
-            // Format the date to a more readable format
-            const formattedDate = lastModifiedDate.toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: true,
-            });
-
-            return (
-                <div
-                    key={file.fileId}
-                    onClick={() => onFileSelect(file.fileName, file.filePath)}
-                    style={{ cursor: 'pointer' }}
-                >
-                    {file.fileName}{"_"}<small><small><small>{formattedDate}</small></small></small>
-                </div>
-            );
-        })}
-    </div>
-);
-
 const ProjectPage = () => {
     const { slug } = useParams();
     const navigate = useNavigate();
@@ -57,6 +28,36 @@ const ProjectPage = () => {
     const [stompClient, setStompClient] = useState(null);
     const stompClientRef = useRef(null);
     const [userRole, setUserRole] = useState('');
+
+    const FileExplorer = ({ files, onFileSelect }) => (
+        <div className = "file-container">
+            <ul className="file-list">
+            {files.map((file) => {
+                // Create a Date object from the last modified string
+                const lastModifiedDate = new Date(file.lastModefied);
+                // Format the date to a more readable format
+                const formattedDate = lastModifiedDate.toLocaleString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true,
+                });
+                return (
+                        <li
+                            key={file.fileId}
+                            onClick={() => onFileSelect(file.fileName, file.filePath)}
+                            className={`file-item ${selectedFile === file.fileName ? 'active' : ''}`}
+                        >
+                            {file.fileName}{" "}<small><small><small>{formattedDate}</small></small></small>
+                        </li>
+                );
+            })}
+            </ul>
+        </div>
+    );
 
     useEffect(() => {
         const fetchProjectData = async () => {

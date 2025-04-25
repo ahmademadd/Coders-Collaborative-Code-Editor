@@ -1,5 +1,6 @@
 /* Project Page Container */
 .project-page-container {
+    height:100vh
     display: flex;
     flex-direction: column;
     padding: 5px;
@@ -61,7 +62,35 @@
     height: 100%;
     overflow-y: auto; /* Add scroll if content exceeds column height */
   }
-  
+  .file-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  .file-list {
+    padding-left: 15px;
+    overflow: hidden;
+
+  }
+  .file-item {
+    list-style: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  .file-item:hover {
+    background-color: #e6f0ff;
+    transform: translateX(4px);
+  }
+
+  .file-item.active {
+    background-color: #d0e0ff;
+  }
   /* Specific Column Heights */
   .file-explorer, .code-editor, .output-console {
     height: 100%; /* Full height for all columns */
