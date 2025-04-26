@@ -3,23 +3,23 @@ services:
     container_name: database
     build:
       context: ./database
-      dockerfile: Dockerfile
     ports:
       - "3306:3306"
+    networks:
+      - back_network
+    volumes:
+      - mysql_data:/var/lib/mysql
     healthcheck:
-      test:  ["CMD-SHELL", "mysqladmin ping -h localhost -u root --password=userpassword"]
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root --password=userpassword" ]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 30s
-    networks:
-      - back_network
 
   backend:
     container_name: backend-SpringBoot
     build:
       context: ./backend
-      dockerfile: Dockerfile
     depends_on:
       - mysql
       - minio
@@ -32,10 +32,10 @@ services:
       MINIO_URL: http://minio:9000
       MINIO_ROOT_USER: AhmadEmad
       MINIO_ROOT_PASSWORD: atyponpassword
-      EXECUTION_FILE_PATH: /app/code_storage
+      EXECUTION_FILE_PATH: C:\Users\LENOVO\IdeaProjects\Coders-Collaborative-Code-Editor\code_execution_path
       DOCKER_HOST: unix:///var/run/docker.sock
     volumes:
-      - code_storage:/app/code_storage
+      - C:\Users\LENOVO\IdeaProjects\Coders-Collaborative-Code-Editor\code_execution_path:/app/code_storage
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - front_network
@@ -62,11 +62,16 @@ services:
       MINIO_ROOT_USER: AhmadEmad
       MINIO_ROOT_PASSWORD: atyponpassword
       MINIO_BUCKET: coders
-    volumes:
-      - minio_data:/data 
     command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
     networks:
       - minio-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/ready" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   minio_setup:
     image: minio/mc
@@ -74,7 +79,6 @@ services:
       - minio
     entrypoint: >
       /bin/sh -c "
-      sleep 10;
       mc alias set myminio http://minio:9000 AhmadEmad atyponpassword;
       mc mb myminio/coders || true;
       "

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from './Pages/Home'; 
-import About from './Pages/About';
 import Signin from "./Pages/Signin";
 import Signup from "./Pages/Signup";
 import { ThemeProvider } from './Components/Theme'; 
