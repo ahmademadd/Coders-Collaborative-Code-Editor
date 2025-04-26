@@ -6,13 +6,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
 public class ExecutionService {
 
-    @Value("${execution.file.path}")
+    @Value("${EXECUTION_FILE_PATH}")
     private String filePath;
 
     public String executeCode(String code) throws Exception {
@@ -24,7 +25,7 @@ public class ExecutionService {
         System.out.println("Temporary file created: " + fileName);
         System.out.println("File content:\n" + code);
 
-        String[] dockerCommand = buildDockerCommand(fileName);
+        String[] dockerCommand = buildDockerCommand(fileName).split(" ");
 
         System.out.println("Executing Docker command: " + String.join(" ", dockerCommand));
 
@@ -49,18 +50,17 @@ public class ExecutionService {
     }
 
     private String writeCodeToFile(String code) throws IOException {
-        String fileName = filePath + "\\code_" + UUID.randomUUID().toString() + ".py";
+        String fileName = "/app/code_storage/code_" + UUID.randomUUID().toString() + ".py";
         Files.write(Paths.get(fileName), code.getBytes());
         return fileName;
     }
 
-    private String[] buildDockerCommand(String fileName) {
-        String normalizedPath = fileName.replace("\\", "/").replace("C:", "/c");
-        return new String[]{
-                "docker", "run", "--rm",
-                "-v", normalizedPath + ":/tmp/code.py",
-                "python", "python3", "/tmp/code.py"
-        };
+    private String buildDockerCommand(String fileName) {
+        Path path = Paths.get(fileName);
+        String pythonScript = path.getFileName().toString();
+        return "docker run --rm -v "
+                + filePath + ":/usr/src/app python:3 python /usr/src/app/"
+                + pythonScript;
     }
 
     private void cleanupFiles(String fileName) {
