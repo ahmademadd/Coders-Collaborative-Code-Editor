@@ -7,7 +7,7 @@ const CreateProject = () => {
   const { isDarkMode } = useTheme(); // Get the theme mode
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
-  const [language, setLanguage] = useState('');
+  const [language, setLanguage] = useState('python');
   const navigate = useNavigate(); // For redirecting after creation
 
   const handleSubmit = async (e) => {
