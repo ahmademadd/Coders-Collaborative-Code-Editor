@@ -425,11 +425,31 @@ const handleRenameSubmit = async () => {
         .catch((err) => console.error(err.message));
     };
 
+    const handleDeleteProject = async () => {
+            if (window.confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+                try {
+                    await fetch(`http://localhost:8080/dashboard/project/delete?projectSlug=${slug}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                        },
+                    });
+                    navigate('/dashboard');
+                } catch (error) {
+                    console.error('Failed to delete project', error);
+                }
+            }
+        };
+
     return (
         <div className={`project-page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="project-header">
                 <h1>{project ? project.name : 'Loading project...'}</h1>
-                <button className="settings-btn roleCustom" onClick={handleSettings} disabled={isButtonDisabled(['owner'])}>Developers</button>
+                <div>
+                    <button className="settings-btn roleCustom" onClick={handleSettings} disabled={isButtonDisabled(['owner'])}>Developers</button>
+                    <button className="settings-btn roleCustom delete" onClick={handleDeleteProject} disabled={isButtonDisabled(['owner'])}>Delete Project</button>
+                </div>
             </div>
             <div className="columns-container">
                 <div className="column file-explorer">

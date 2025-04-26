@@ -3,7 +3,6 @@ services:
     container_name: database
     build:
       context: ./database
-      dockerfile: Dockerfile
     ports:
       - "3306:3306"
     healthcheck:
@@ -19,7 +18,6 @@ services:
     container_name: backend-SpringBoot
     build:
       context: ./backend
-      dockerfile: Dockerfile
     depends_on:
       - mysql
       - minio

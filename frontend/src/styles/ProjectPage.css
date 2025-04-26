@@ -19,6 +19,7 @@
   
   /* Settings Button Styling */
   .settings-btn {
+    margin:4px;
     color: #fff;
     padding: 5px 10px;
     border: none;
@@ -117,6 +118,9 @@
   
   button:hover {
     transform: scale(1.01);
+  }
+  .delete:hover {
+      background-color: #b90000;
   }
   
   /* Dark Mode Adjustments */
