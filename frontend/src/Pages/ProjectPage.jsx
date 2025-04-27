@@ -328,7 +328,7 @@ const handleRenameSubmit = async () => {
 
     const handleExecuteCode = async () => {
         const executeDto = {
-            language: "python", 
+            language: project.language,
             fileDto: {
                 fileName: selectedFile,
                 filePath: "",
@@ -349,7 +349,7 @@ const handleRenameSubmit = async () => {
     
             if (response.ok) {
                 const result = await response.json();
-                setOutput(`Code executed successfully: ${result.result}`);
+                setOutput(`${result.result}`);
             } else {
                 const errorResult = await response.json();
                 setOutput(`Execution failed: ${errorResult.message}`);
