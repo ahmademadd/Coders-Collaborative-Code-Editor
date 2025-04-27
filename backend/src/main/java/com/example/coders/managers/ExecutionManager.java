@@ -25,9 +25,6 @@ public class ExecutionManager {
     @Autowired
     private ExecutionService executionService;
 
-    @Autowired
-    private FileStorageService fileStorageService;
-
     // A method to add requests to the queue
     public void submitExecutionRequest(ExecutionRequestsDto request) {
         executionQueue.add(request);
@@ -42,9 +39,7 @@ public class ExecutionManager {
             if (request != null) {
                 CompletableFuture.runAsync(() -> {
                     try {
-                        byte[] fileData = fileStorageService.getFileContents(fileStorageService.calcFilePath(request.getCodeRequest().getFileDto()));
-                        String code = new String(fileData, StandardCharsets.UTF_8);
-                        String result = executionService.executeCode(code);
+                        String result = executionService.executeCode(request.getCodeRequest());
                         messagingTemplate.convertAndSend("/topic/status/" + request.getProjectSlug(),
                                 new ExecutionResultDto("COMPLETED", result));
                     } catch (Exception e) {

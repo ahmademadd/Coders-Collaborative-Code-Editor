@@ -72,7 +72,7 @@ const CreateProject = () => {
             required
           >
             <option value="python">Python</option>
-            <option value="javascript">JavaScript</option>
+            <option value="java">Java</option>
           </select>
         </div>
 

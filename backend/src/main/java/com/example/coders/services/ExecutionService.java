@@ -1,33 +1,37 @@
 package com.example.coders.services;
 
+import com.example.coders.dtos.ExecuteDto;
+import com.example.coders.dtos.FileDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.UUID;
 
 @Service
 public class ExecutionService {
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
     @Value("${EXECUTION_FILE_PATH}")
     private String filePath;
 
-    public String executeCode(String code) throws Exception {
-        if (code == null || code.trim().isEmpty()) {
+    public String executeCode(ExecuteDto executeDto) throws Exception {
+        byte[] fileData = fileStorageService.getFileContents(fileStorageService.calcFilePath(executeDto.getFileDto()));
+        String code = new String(fileData, StandardCharsets.UTF_8);
+
+        if (code.isEmpty() || code.trim().isEmpty()) {
             throw new IllegalArgumentException("Code cannot be empty");
         }
-        String fileName = writeCodeToFile(code);
+        String fileName = writeCodeToFile(executeDto.getFileDto(), code);
 
-        System.out.println("Temporary file created: " + fileName);
-        System.out.println("File content:\n" + code);
-
-        String[] dockerCommand = buildDockerCommand(fileName).split(" ");
-
-        System.out.println("Executing Docker command: " + String.join(" ", dockerCommand));
+        String[] dockerCommand = buildDockerCommand(executeDto, fileName);
 
         ProcessBuilder processBuilder = new ProcessBuilder(dockerCommand);
         processBuilder.redirectErrorStream(true);
@@ -49,18 +53,38 @@ public class ExecutionService {
         return output.toString();
     }
 
-    private String writeCodeToFile(String code) throws IOException {
-        String fileName = "/app/code_storage/code_" + UUID.randomUUID().toString() + ".py";
+    private String writeCodeToFile(FileDto fileDto, String code) throws IOException {
+        String fileName = "/app/code_storage/" + fileDto.getFileName();
         Files.write(Paths.get(fileName), code.getBytes());
         return fileName;
     }
 
-    private String buildDockerCommand(String fileName) {
+    private String[] buildDockerCommand(ExecuteDto executeDto, String fileName) {
+        if (executeDto.getLanguage().equalsIgnoreCase("python"))
+            return python(fileName);
+        if (executeDto.getLanguage().equalsIgnoreCase("java"))
+            return java(fileName);
+        return null;
+    }
+
+    private String[] java(String fileName) {
+        Path path = Paths.get(fileName);
+        String javaFile = path.getFileName().toString();
+
+        return new String[]{"docker", "run", "--rm", "-v",
+                filePath +
+                ":/usr/src/app", "-w", "/usr/src/app", "openjdk:21", "bash", "-c", "javac "
+                + javaFile + " && java " + javaFile.substring(0, javaFile.length() - 5)
+            };
+    }
+
+    private String[] python(String fileName) {
         Path path = Paths.get(fileName);
         String pythonScript = path.getFileName().toString();
-        return "docker run --rm -v "
-                + filePath + ":/usr/src/app python:3 python /usr/src/app/"
-                + pythonScript;
+        return new String[]{"docker", "run", "--rm", "-v ",
+                filePath + ":/usr/src/app", "python:3", "python", "/usr/src/app/"
+                + pythonScript
+            };
     }
 
     private void cleanupFiles(String fileName) {
