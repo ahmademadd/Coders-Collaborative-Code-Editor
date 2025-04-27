@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -45,7 +46,7 @@ public class ExecutionService {
             }
         }
         int exitCode = process.waitFor();
-        cleanupFiles(fileName);
+        cleanupFiles();
         if (exitCode != 0) {
             return "Execution failed with exit code " + exitCode + ": " + output.toString();
         }
@@ -87,9 +88,12 @@ public class ExecutionService {
             };
     }
 
-    private void cleanupFiles(String fileName) {
+    private void cleanupFiles() {
         try {
-            Files.deleteIfExists(Paths.get(fileName));
+            File folder = new File("/app/code_storage/");
+            for (File file : folder.listFiles()) {
+                Files.deleteIfExists(file.toPath());
+            }
         } catch (IOException e) {
             // Log exception
             e.printStackTrace();
