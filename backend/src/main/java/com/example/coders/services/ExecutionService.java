@@ -82,7 +82,7 @@ public class ExecutionService {
     private String[] python(String fileName) {
         Path path = Paths.get(fileName);
         String pythonScript = path.getFileName().toString();
-        return new String[]{"docker", "run", "--rm", "-v ",
+        return new String[]{"docker", "run", "--rm", "-v",
                 filePath + ":/usr/src/app", "python:3", "python", "/usr/src/app/"
                 + pythonScript
             };
