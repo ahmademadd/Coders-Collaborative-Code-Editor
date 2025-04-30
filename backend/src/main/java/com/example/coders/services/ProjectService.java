@@ -153,7 +153,18 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
+    public void recalculateSize(Project project) {
+        long size = 0;
+        for (File f : project.getFiles()) {
+            size += f.getFileSize();
+        }
+
+        project.setSize(size);
+        projectRepository.save(project);
+    }
+
+    @Transactional()
     public List<FileStructureDto> getProjectFiles(Integer projectId) {
         Optional<Project> projectOptional = projectRepository.findById(projectId);
         if (projectOptional.isEmpty()) {
@@ -161,6 +172,7 @@ public class ProjectService {
         }
 
         Project project = projectOptional.get();
+        recalculateSize(project);
 
         // Map all files in the project
         List<FileStructureDto> fileStructureDtos = project.getFiles().stream()

@@ -224,6 +224,7 @@ public class FileStorageService {
             file.setFileType(newContentType);
             file.setLastModified(LocalDateTime.now());
             file.setLastModifiedBy(authenticationService.authenticatedUser().getId());
+            file.setFileSize(newFileData.length);
 
             fileRepository.save(file);
         } catch (Exception e) {

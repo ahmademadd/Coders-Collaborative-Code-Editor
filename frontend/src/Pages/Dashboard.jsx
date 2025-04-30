@@ -70,7 +70,7 @@ const Dashboard = () => {
               </span>
             </h3>
             <p><strong>Language:</strong> {project.language}</p>
-            <p><strong>Size:</strong> {project.size} KB</p>
+            <p><strong>Size:</strong> {(project.size/1000).toFixed(3)} KB</p>
             <p><strong>Created At:</strong> {new Date(project.createdAt).toLocaleDateString()}</p>
             <p><strong>Last Modified:</strong> {new Date(project.lastModified).toLocaleDateString()}</p>
             <p><strong>URL:</strong> <a href="" target="_blank" rel="noopener noreferrer">{project.url}</a></p>
