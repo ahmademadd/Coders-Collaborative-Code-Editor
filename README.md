@@ -1,4 +1,33 @@
 # Coders - Collaborative Code Editor
+
+## Login with GitHub
+![Screenshot 2025-05-23 015116](https://github.com/user-attachments/assets/2ed3f0f3-b8ee-4080-ba0d-57802c147111)
+![Screenshot 2025-05-23 015238](https://github.com/user-attachments/assets/874ef662-07cf-45ce-a2b7-e8a612240343)
+
+## Projects Dashboard
+All user projects are listed.
+
+![Screenshot 2025-05-23 015304](https://github.com/user-attachments/assets/80c5d8f7-63af-4d39-8956-7a3e234a53a5)
+
+## Create Project
+User can create a project in java or python.
+
+![Screenshot 2025-05-23 015324](https://github.com/user-attachments/assets/cb20314c-22b4-4c9c-a783-630f616faf58)
+
+## Project
+The project page lists all availble files and the code editor displays the selected file.
+The file can be executed after being saved.
+The developers and delete projects buttons are disabled for this user as the user does not own this project and was added as a collaborator by a diffrent developer.
+
+![image](https://github.com/user-attachments/assets/3204a578-2334-4e9f-9a59-0b58e2645015)
+
+## Adding developers
+All registered users are listed and the project owner can add a selected user as an editor or a viewr.
+Project owner can remove the developers he added.
+
+![image](https://github.com/user-attachments/assets/fdfdae62-e0e4-456e-b819-77e9e1c5226f)
+
+
 ## Features
 
 - **Real-Time Collaboration**: 
