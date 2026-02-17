@@ -36,10 +36,10 @@ services:
       MINIO_URL: http://minio:9000
       MINIO_ROOT_USER: AhmadEmad
       MINIO_ROOT_PASSWORD: atyponpassword
-      EXECUTION_FILE_PATH: C:\Users\LENOVO\IdeaProjects\Coders-Collaborative-Code-Editor\code_execution_path
+      EXECUTION_FILE_PATH: ./code_execution_path
       DOCKER_HOST: unix:///var/run/docker.sock
     volumes:
-      - C:\Users\LENOVO\IdeaProjects\Coders-Collaborative-Code-Editor\code_execution_path:/app/code_storage
+      - ./code_execution_path:/app/code_storage
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - front_network
