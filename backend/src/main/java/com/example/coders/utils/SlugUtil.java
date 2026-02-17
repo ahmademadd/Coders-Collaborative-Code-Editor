@@ -3,7 +3,6 @@ package com.example.coders.utils;
 import com.example.coders.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.text.Normalizer;
 import java.util.Locale;
 import java.util.UUID;

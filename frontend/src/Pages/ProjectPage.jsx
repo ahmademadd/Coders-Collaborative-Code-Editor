@@ -126,7 +126,7 @@ const ProjectPage = () => {
                         const updatedProject = JSON.parse(message.body);
                         console.log('Received updated project:', updatedProject);
                         
-                        if (updatedProject && updatedProject.code) {
+                        if (updatedProject) {
                             if (updatedProject.file === selectedFile) {
                                 setFileContent(updatedProject.code);
                             } else {
