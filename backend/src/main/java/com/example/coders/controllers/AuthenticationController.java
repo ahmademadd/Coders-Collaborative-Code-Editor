@@ -5,7 +5,6 @@ import com.example.coders.dtos.RegisterUserDto;
 import com.example.coders.responses.LoginResponse;
 import com.example.coders.services.AuthenticationService;
 import com.example.coders.services.JwtService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
