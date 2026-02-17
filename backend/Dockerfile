@@ -6,7 +6,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # ---------- Runtime Stage ----------
-FROM openjdk:21-slim
+FROM eclipse-temurin:21-jre-jammy
 
 RUN apt-get update && \
     apt-get install -y docker.io && \
