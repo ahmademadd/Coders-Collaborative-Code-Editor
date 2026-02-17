@@ -36,7 +36,7 @@ const SignInPage = () => {
 
   const handleGitHubLogin = () => {
     // Redirect to GitHub OAuth authorization URL
-    window.location.href = 'http://52.233.94.254/oauth2/authorization/github';
+    window.location.href = 'http://52.233.94.254:8080/oauth2/authorization/github';
   };
 
   const handleOAuthCallback = () => {
