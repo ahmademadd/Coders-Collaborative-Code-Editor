@@ -17,7 +17,7 @@ const CreateProject = () => {
     const trimmedProjectName = projectName.trim();
     // Send project data to the backend
     try {
-      const response = await fetch('http://localhost:8080/dashboard/project/create', {
+      const response = await fetch('http://52.233.94.254:8080/dashboard/project/create', {
         method: 'POST',
         body: JSON.stringify({
           name: trimmedProjectName,

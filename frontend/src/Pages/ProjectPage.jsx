@@ -63,7 +63,7 @@ const ProjectPage = () => {
         const fetchProjectData = async () => {
             try {
                 // Fetch project details
-                const projectResponse = await fetch(`http://localhost:8080/dashboard/project/get?projectSlug=${slug}`, {
+                const projectResponse = await fetch(`http://52.233.94.254:8080/dashboard/project/get?projectSlug=${slug}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const ProjectPage = () => {
                 localStorage.setItem('projectInfo', JSON.stringify(projectData));
     
                 // Fetch project structure after project details
-                const structureResponse = await fetch(`http://localhost:8080/dashboard/project/structure?projectSlug=${slug}`, {
+                const structureResponse = await fetch(`http://52.233.94.254:8080/dashboard/project/structure?projectSlug=${slug}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ const ProjectPage = () => {
     
                 // Fetch user role
                 const userEmail = localStorage.getItem('email');
-                const roleResponse = await fetch(`http://localhost:8080/dashboard/project/role/userRole?projectSlug=${slug}&userEmail=${userEmail}`, {
+                const roleResponse = await fetch(`http://52.233.94.254:8080/dashboard/project/role/userRole?projectSlug=${slug}&userEmail=${userEmail}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ const ProjectPage = () => {
     
         const connectWebSocket = () => {
             const token = localStorage.getItem('authToken');
-            const socket = new SockJS(`http://localhost:8080/ws?token=${token}`);
+            const socket = new SockJS(`http://52.233.94.254:8080/ws?token=${token}`);
             const stompClient = Stomp.over(socket);
     
             stompClient.connect(
@@ -228,7 +228,7 @@ const handleRenameSubmit = async () => {
             projectSlug: slug,
         };
 
-        const response = await fetch(`http://localhost:8080/dashboard/project/files/rename`, {
+        const response = await fetch(`http://52.233.94.254:8080/dashboard/project/files/rename`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -262,7 +262,7 @@ const handleRenameSubmit = async () => {
                 projectSlug: slug,
             };
 
-            const response = await fetch(`http://localhost:8080/dashboard/project/files/delete`, {
+            const response = await fetch(`http://52.233.94.254:8080/dashboard/project/files/delete`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -285,7 +285,7 @@ const handleRenameSubmit = async () => {
     };
 
     const handleFileSelect = (fileName) => {
-        fetch(`http://localhost:8080/dashboard/project/files/get-contents`, {
+        fetch(`http://52.233.94.254:8080/dashboard/project/files/get-contents`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -313,7 +313,7 @@ const handleRenameSubmit = async () => {
         formData.append("newFileName", "");
         formData.append("filePath", "");
 
-        fetch(`http://localhost:8080/dashboard/project/files/update-contents`, {
+        fetch(`http://52.233.94.254:8080/dashboard/project/files/update-contents`, {
             method: 'PUT',
             headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` },
             body: formData,
@@ -338,7 +338,7 @@ const handleRenameSubmit = async () => {
         };
     
         try {
-            const response = await fetch('http://localhost:8080/dashboard/project/code/execute', {
+            const response = await fetch('http://52.233.94.254:8080/dashboard/project/code/execute', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -367,7 +367,7 @@ const handleRenameSubmit = async () => {
         const pathParts = newFilePath.split('/');
         const fileNameOrFolderName = pathParts.pop();
         const folderPath = pathParts.length ? pathParts.join('/') + '/' : '';
-        const requestUrl = 'http://localhost:8080/dashboard/project/files/upload';
+        const requestUrl = 'http://52.233.94.254:8080/dashboard/project/files/upload';
     
         const formData = new FormData();
         const file = new File([], fileNameOrFolderName);
@@ -407,7 +407,7 @@ const handleRenameSubmit = async () => {
     };
 
     const fetchProjectStructure = () => {
-        fetch(`http://localhost:8080/dashboard/project/structure?projectSlug=${slug}`, {
+        fetch(`http://52.233.94.254:8080/dashboard/project/structure?projectSlug=${slug}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -428,7 +428,7 @@ const handleRenameSubmit = async () => {
     const handleDeleteProject = async () => {
             if (window.confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
                 try {
-                    await fetch(`http://localhost:8080/dashboard/project/delete?projectSlug=${slug}`, {
+                    await fetch(`http://52.233.94.254:8080/dashboard/project/delete?projectSlug=${slug}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',

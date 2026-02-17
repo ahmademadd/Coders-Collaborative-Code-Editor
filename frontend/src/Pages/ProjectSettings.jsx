@@ -32,7 +32,7 @@ const ProjectSettings = () => {
 
     const fetchProjectDetails = useCallback(async () => {
         try {
-            const response = await fetch(`http://localhost:8080/dashboard/project/get?projectSlug=${slug}`, {
+            const response = await fetch(`http://52.233.94.254:8080/dashboard/project/get?projectSlug=${slug}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const ProjectSettings = () => {
 
     const fetchAvailableUsers = useCallback(async () => {
         try {
-            const response = await fetch(`http://localhost:8080/users/notInProject?projectSlug=${slug}`, {
+            const response = await fetch(`http://52.233.94.254:8080/users/notInProject?projectSlug=${slug}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const ProjectSettings = () => {
 
     const fetchCurrentDevelopers = useCallback(async () => {
         try {
-            const response = await fetch(`http://localhost:8080/dashboard/project/role/inProject?projectSlug=${slug}`, {
+            const response = await fetch(`http://52.233.94.254:8080/dashboard/project/role/inProject?projectSlug=${slug}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ const ProjectSettings = () => {
     const handleDeleteProject = async () => {
         if (window.confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
             try {
-                await fetch(`http://localhost:8080/dashboard/project/delete?projectSlug=${slug}`, {
+                await fetch(`http://52.233.94.254:8080/dashboard/project/delete?projectSlug=${slug}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const ProjectSettings = () => {
     const handleUpdateProject = async (e) => {
         e.preventDefault();
         try {
-            await fetch(`http://localhost:8080/dashboard/project/update`, {
+            await fetch(`http://52.233.94.254:8080/dashboard/project/update`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -135,7 +135,7 @@ const ProjectSettings = () => {
 
     const handleAddDeveloper = async (userEmail) => {
         try {
-            const response = await fetch(`http://localhost:8080/dashboard/project/role/assign`, {
+            const response = await fetch(`http://52.233.94.254:8080/dashboard/project/role/assign`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ const ProjectSettings = () => {
     
     const handleRemoveDeveloper = async (developerEmail) => {
         try {
-            const response = await fetch(`http://localhost:8080/dashboard/project/role/remove`, {
+            const response = await fetch(`http://52.233.94.254:8080/dashboard/project/role/remove`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ const ProjectSettings = () => {
     
     const handleRoleChange = async (developerEmail, newRole) => {
         try {
-            const response = await fetch(`http://localhost:8080/dashboard/project/role/update`, {
+            const response = await fetch(`http://52.233.94.254:8080/dashboard/project/role/update`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -21,7 +21,7 @@ const Dashboard = () => {
     }
 
     // Fetch projects from the backend with the user email as a query parameter
-    fetch(`http://localhost:8080/dashboard/project/user-projects?email=${userEmail}`, {
+    fetch(`http://52.233.94.254:8080/dashboard/project/user-projects?email=${userEmail}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

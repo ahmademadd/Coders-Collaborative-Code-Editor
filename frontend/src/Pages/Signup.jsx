@@ -13,7 +13,7 @@ const SignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/auth/signup', {
+      const response = await fetch('http://52.233.94.254:8080/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
