@@ -81,7 +81,7 @@ public class SecurityConfiguration {
             }
 
             // Redirect to frontend with token and email
-            response.sendRedirect("http://localhost:80/?token=" + URLEncoder.encode(token, StandardCharsets.UTF_8) + "&email=" + URLEncoder.encode(email, StandardCharsets.UTF_8));
+            response.sendRedirect("http://52.233.94.254:80/?token=" + URLEncoder.encode(token, StandardCharsets.UTF_8) + "&email=" + URLEncoder.encode(email, StandardCharsets.UTF_8));
 
         };
     }
@@ -90,7 +90,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:80", "http://localhost"));
+        configuration.setAllowedOrigins(List.of("http://52.233.94.254:5173", "http://52.233.94.254:80", "http://52.233.94.254"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);

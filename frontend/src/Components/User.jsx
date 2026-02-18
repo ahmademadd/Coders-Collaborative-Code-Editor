@@ -8,7 +8,7 @@ const User = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch('http://localhost:8080/users/me', {
+        const response = await fetch('http://52.233.94.254:8080/users/me', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
